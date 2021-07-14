@@ -1,0 +1,10 @@
+python 3.6.9
+Tensorflow 1.15.0
+keras  2.2.5
+Pillow 5.3.0（必须，否则labelme执行json_to_dataset会出错）
+Cv2（必须安装，训练模型时用到）
+Wrapt
+opt_einsum
+Gast
+scikit-image
+IPython

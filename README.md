@@ -1,13 +1,13 @@
 # Mask_RCNN-master007
 基于mask_rcnn的目标检测案例，本地win10系统CPU测试通过，踩过很多坑，填坑方法均已给出，
 可训练自定义数据集，需要增加“样本集数量”和调试“超参数”来提供准确率。
+本项目源码对应的csdn地址：https://mp.csdn.net/mp_blog/creation/editor/118832615
 
-
+**请注意：原来的数据集过于简单，只有c和m两个分类，共14张图片；本版本往后，替换成管道缺陷检测数据集，共338张图片，12个分类**
 
 
 
 参考资料：https://blog.csdn.net/hhhuua/article/details/107569039
-
 1.版本信息
 python 3.6.9
 Tensorflow 1.15.0
@@ -148,8 +148,12 @@ https://blog.csdn.net/weixin_44826203/article/details/105692190
 
 <img width="1123"  height="602"  src="mask_rcnn应用案例详解.files/mask_rcnn应用案例详解4778.png" >
 
+<img width="1123"  height="602"  src="mask_rcnn应用案例详解.files/mask_rcnn应用案例详解13001.png" >
+
 
 6.rename_cv2_mask.py ，复制label.png，并改名；
+
+<img width="1128"  height="650"  src="mask_rcnn应用案例详解.files/mask_rcnn应用案例详解13003.png" >
 
 <img width="1128"  height="650"  src="mask_rcnn应用案例详解.files/mask_rcnn应用案例详解4922.png" >
 
@@ -201,6 +205,10 @@ cmd命令：tensorboard --logdir=shapes20210707T1008
 
 <img width="1109"  height="631"  src="mask_rcnn应用案例详解.files/mask_rcnn应用案例详解7156.png" >
 
+管道缺陷数据集（338张）：
+
+<img width="1109"  height="631"  src="mask_rcnn应用案例详解.files/mask_rcnn应用案例详解13006.png" >
+
 
 11.测试模型：运行 Run‘test’;
 https://blog.csdn.net/doudou_here/article/details/87855273 
@@ -214,6 +222,10 @@ https://blog.csdn.net/doudou_here/article/details/87855273
 运行 Run ’test2’:
 
 <img width="1114"  height="600"  src="mask_rcnn应用案例详解.files/mask_rcnn应用案例详解7679.png" >
+
+ 管道数据集测试结果如下：
+ 
+<img width="1114"  height="600"  src="mask_rcnn应用案例详解.files/mask_rcnn应用案例详解13009.png" >
 
 
 *问题总结*：
@@ -314,4 +326,64 @@ https://blog.csdn.net/rp517045939/article/details/88838417
 <img width="1104"  height="575"  src="mask_rcnn应用案例详解.files/mask_rcnn应用案例详解12531.png" >
   
 
+8.执行transform_json.py文件，将json文件转换为模型需要的mask文件时，报错。
+json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+  
+<img width="1104"  height="575"  src="mask_rcnn应用案例详解.files/mask_rcnn应用案例详解13011.png" > 
+
+解决方法：
+
+<img width="1104"  height="575"  src="mask_rcnn应用案例详解.files/mask_rcnn应用案例详解13015.png" > 
+
+<img width="1104"  height="575"  src="mask_rcnn应用案例详解.files/mask_rcnn应用案例详解13017.png" > 
+
+<img width="1104"  height="575"  src="mask_rcnn应用案例详解.files/mask_rcnn应用案例详解13019.png" > 
+
+
+9.问题：AttributeError: module 'tensorboard.plugins.pr_curve.summary' has no attribute 'pb'
+
+<img width="1104"  height="575"  src="mask_rcnn应用案例详解.files/mask_rcnn应用案例详解13025.png" > 
+
+解决方法：
+参考资料：https://www.jianshu.com/p/1cd9fe04f5ae 
+
+<img width="1104"  height="575"  src="mask_rcnn应用案例详解.files/mask_rcnn应用案例详解13028.png" > 
+
+
+10.问题：IndexError: boolean index did not match indexed array along dimension 0; dimension is 0 but corresponding boolean dimension is 1
+
+<img width="1104"  height="575"  src="mask_rcnn应用案例详解.files/mask_rcnn应用案例详解13031.png" > 
+
+解决方法：
+
+<img width="1104"  height="575"  src="mask_rcnn应用案例详解.files/mask_rcnn应用案例详解13033.png" > 
+
+
+11.问题：module 'tensorflow' has no attribute 'placeholder'
+
+<img width="1104"  height="575"  src="mask_rcnn应用案例详解.files/mask_rcnn应用案例详解13036.png" > 
+
+解决方法：
+参考资料：https://zhuanlan.zhihu.com/p/262180446 
+
+<img width="1104"  height="575"  src="mask_rcnn应用案例详解.files/mask_rcnn应用案例详解13038.png" > 
+
+
+12.问题：'Model' object has no attribute 'metrics_tensors'
+
+<img width="1104"  height="575"  src="mask_rcnn应用案例详解.files/mask_rcnn应用案例详解13045.png" > 
+
+解决方法：
+参考资料：https://blog.csdn.net/qq_43381010/article/details/104550241 
+
+<img width="1104"  height="575"  src="mask_rcnn应用案例详解.files/mask_rcnn应用案例详解13049.png" > 
+
+
+
+
+
+
+
+
+  
   

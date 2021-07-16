@@ -48,10 +48,10 @@ class ShapesConfig(Config):
     # Train on 1 GPU and 8 images per GPU. We can put multiple images on each
     # GPU because the images are small. Batch size is 8 (GPUs * images/GPU).
     GPU_COUNT = 1
-    IMAGES_PER_GPU = 1
+    IMAGES_PER_GPU = 30
 
     # Number of classes (including background)
-    NUM_CLASSES = 1 + 2  # background + 2 shapes
+    NUM_CLASSES = 1 + 12  # background + 2 shapes
 
     # Use small images for faster training. Set the limits of the small side
     # the large side, and that determines the image shape.
@@ -63,13 +63,13 @@ class ShapesConfig(Config):
 
     # Reduce training ROIs per image because the images are small and have
     # few objects. Aim to allow ROI sampling to pick 33% positive ROIs.
-    TRAIN_ROIS_PER_IMAGE = 5
+    TRAIN_ROIS_PER_IMAGE = 10
 
     # Use a small epoch since the data is simple
-    STEPS_PER_EPOCH = 5
+    STEPS_PER_EPOCH = 20
 
     # use small validation steps since the epoch is small
-    VALIDATION_STEPS = 3
+    VALIDATION_STEPS = 10
 
 
 config = ShapesConfig()
@@ -120,8 +120,18 @@ class DrugDataset(utils.Dataset):
         height, width: the size of the generated images.
         """
         # Add classes
-        self.add_class("shapes", 1, "c")
-        self.add_class("shapes", 2, "m")
+        self.add_class("shapes", 1, "AJ")
+        self.add_class("shapes", 2, "BX")
+        self.add_class("shapes", 3, "CJ")
+        self.add_class("shapes", 4, "CK")
+        self.add_class("shapes", 5, "CR")
+        self.add_class("shapes", 6, "FZ")
+        self.add_class("shapes", 7, "JG")
+        self.add_class("shapes", 8, "PL")
+        self.add_class("shapes", 9, "QF")
+        self.add_class("shapes", 10, "TJ")
+        self.add_class("shapes", 11, "ZC")
+        self.add_class("shapes", 12, "ZW")
 
         for i in range(count):
             # 获取图片宽和高
@@ -159,12 +169,30 @@ class DrugDataset(utils.Dataset):
         labels = self.from_yaml_get_class(image_id)
         labels_form = []
         for i in range(len(labels)):
-            if labels[i].find("c") != -1:
-                labels_form.append("c")
-            elif labels[i].find("m") != -1:
-                labels_form.append("m")
-            # elif labels[i].find("other_class_name") != -1:
-            #     labels_form.append("other_class_name")
+            if labels[i].find("AJ") != -1:
+                labels_form.append("AJ")
+            elif labels[i].find("BX") != -1:
+                labels_form.append("BX")
+            elif labels[i].find("CJ") != -1:
+                labels_form.append("CJ")
+            elif labels[i].find("CK") != -1:
+                labels_form.append("CK")
+            elif labels[i].find("CR") != -1:
+                labels_form.append("CR")
+            elif labels[i].find("FZ") != -1:
+                labels_form.append("FZ")
+            elif labels[i].find("JG") != -1:
+                labels_form.append("JG")
+            elif labels[i].find("PL") != -1:
+                labels_form.append("PL")
+            elif labels[i].find("QF") != -1:
+                labels_form.append("QF")
+            elif labels[i].find("TJ") != -1:
+                labels_form.append("TJ")
+            elif labels[i].find("ZC") != -1:
+                labels_form.append("ZC")
+            elif labels[i].find("ZW") != -1:
+                labels_form.append("ZW")
         class_ids = np.array([self.class_names.index(s) for s in labels_form])
         return mask, class_ids.astype(np.int32)
 
@@ -235,7 +263,7 @@ elif init_with == "last":
 # which layers to train by name pattern.
 model.train(dataset_train, dataset_val,
             learning_rate=config.LEARNING_RATE,
-            epochs=5,
+            epochs=10,
             layers='heads')
 
 # Fine tune all layers
@@ -244,12 +272,8 @@ model.train(dataset_train, dataset_val,
 # train by name pattern.
 model.train(dataset_train, dataset_val,
             learning_rate=config.LEARNING_RATE / 10,
-            epochs=10,
+            epochs=30,
             layers="all")
-
-
-
-
 
 # image_id 6
 # D:/python-workspace/Mask_RCNN-master2/train.py:89: YAMLLoadWarning: calling yaml.load() without Loader=... is deprecated, as the default Loader is unsafe. Please read https://msg.pyyaml.org/load for full details.

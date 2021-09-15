@@ -19,6 +19,7 @@ import matplotlib.pyplot as plt
 from matplotlib import patches,  lines
 from matplotlib.patches import Polygon
 import IPython.display
+import datetime
 
 # Root directory of the project
 ROOT_DIR = os.path.abspath("../")
@@ -164,6 +165,11 @@ def display_instances(image, boxes, masks, class_ids, class_names,
             ax.add_patch(p)
     ax.imshow(masked_image.astype(np.uint8))
     if auto_show:
+	
+		# 保存检测结果截图，需先创建文件夹目录(比如：test_results)；也可以代码判断再创建
+		dt = datetime.datetime.now().strftime("%Y-%m-%d")
+		plt.savefig("./test_results/result%s.jpg" % dt)
+		
         plt.show()
 
 

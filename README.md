@@ -1,7 +1,7 @@
 # Mask_RCNN-master007
 基于mask_rcnn的目标检测案例，本地win10系统CPU测试通过，踩过很多坑，填坑方法均已给出，
 可训练自定义数据集，需要增加“样本集数量”和调试“超参数”来提供准确率。
-本项目源码对应的csdn地址：https://mp.csdn.net/mp_blog/creation/editor/118832615
+本项目源码对应的csdn地址：https://blog.csdn.net/shanxiderenheni/article/details/118832615
 
 **请注意：原来的数据集过于简单，只有c和m两个分类，共14张图片；本版本往后，替换成管道缺陷检测数据集，共338张图片，12个分类**
 
